@@ -1,5 +1,5 @@
 # GameofLife
-## The famous Game of Life using Javascript
+## A simulation of the famous Game of Life using Javascript
 
 
 
