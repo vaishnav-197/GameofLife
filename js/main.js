@@ -1,12 +1,26 @@
+
+// get elements
+
+// control buttons
+const start = document.querySelector('.start');
+const stop = document.querySelector('.stop');
+const randomize = document.querySelector('.randomize');
+
+// canvas
 const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
 
 
+// global stopper 
+let stopper = 0;
+
+
 // canvas details
 
-const resolution = 10;
+const resolution = 20;
 canvas.width = 1000;
-canvas.height = 1000;
+canvas.height = 800;
+
 
 
 
@@ -25,12 +39,14 @@ function buildGrid() {
 // render grid to window
 let grid = buildGrid();
 
-requestAnimationFrame(update);
+
 function update(){
+  if(stopper === 0){
     grid= nextGen(grid);
     render(grid);
     requestAnimationFrame(update);
-}
+  }
+} 
 
 // find next gen cells
 function nextGen(grid){
@@ -71,6 +87,7 @@ function nextGen(grid){
     }
   }
   return nextGen;
+
 }
 
 
@@ -88,3 +105,29 @@ function render(grid) {
         }
     }
 }
+
+
+
+// event listeners
+
+// start 
+
+start.addEventListener('click'  , () => {
+  stopper =0;
+  requestAnimationFrame(update);
+})
+
+// randomize
+randomize.addEventListener('click' , () => {
+   stopper = 1;
+   grid = buildGrid();
+   render(grid);
+})
+
+
+// stop 
+
+stop.addEventListener( 'click' , () => {
+  stopper = 1;
+})
+
